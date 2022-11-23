@@ -1,0 +1,28 @@
+<tui-root>
+  <p>Here you can reproduce any Taiga UI example</p>
+  <tui-input-files
+    [formControl]="files"
+    [accept]="FORMATS"
+    [maxFileSize]="MAX_SIZE"
+    [multiple]="true"
+  >
+  </tui-input-files>
+  <tui-files [max]="3" class="tui-space_top-1">
+    <ng-container
+      *ngFor="let file of files.valueChanges | async; let i = index"
+    >
+      <tui-file
+        *ngIf="file.size > MAX_SIZE"
+        state="error"
+        [file]="file"
+        (removed)="removeFile(i)"
+      ></tui-file>
+      <tui-file
+        *ngIf="file.size <= MAX_SIZE"
+        state="normal"
+        [file]="file"
+        (removed)="removeFile(i)"
+      ></tui-file>
+    </ng-container>
+  </tui-files>
+</tui-root>
